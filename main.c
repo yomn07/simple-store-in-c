@@ -27,14 +27,14 @@ typedef struct {
 } Commande;
 
  typedef struct _commande_element {
-    Commande *commande;    // pointeur sur Commande
+    Commande *commande;    
     unsigned nb_prod;
-    struct _commande_element *next;    // Pointeur sur l element suivant
+    struct _commande_element *next;    
 } commande_element;
 
 typedef struct {
-    commande_element *first;           // Pointeur sur le sommet de la pile
-    unsigned nb_commandes;             // nombre de commande dans la pile
+    commande_element *first;           
+    unsigned nb_commandes;             
 } commande_stack;
 
 typedef struct {
@@ -77,14 +77,14 @@ void affiche(Produit catalogue[] ,int nbe)
 //ajouter un nouveau client
 void creer_compte(Client clients[], int *nbc) {
     Client personne;
-    printf("Donner votre numéro : ");
+    printf("Donner votre numÃ©ro : ");
     scanf("%d", &personne.num_tel);
     personne.commandes.first = NULL;
     personne.commandes.nb_commandes = 0;
 
     printf("Donner votre nom : ");
     scanf("%s", personne.nom);
-    printf("Donner votre prénom : ");
+    printf("Donner votre prÃ©nom : ");
     scanf("%s", personne.prenom);
     printf("Donner votre date de naissance  \n");
     printf("donner le jour : ");
@@ -101,7 +101,7 @@ void creer_compte(Client clients[], int *nbc) {
 
     clients[*nbc] = personne;
     (*nbc)++;
-    printf("Le compte a été créé avec succès !\n");
+    printf("Le compte a Ã©tÃ© crÃ©Ã© avec succÃ¨s !\n");
 }
 
 //fct qui renvoie si un compte a ete cree avec ce numero
@@ -180,7 +180,7 @@ void affiche_hist(Client cl) {
             i++;
         }
     } else {
-        printf("Aucune commande trouvée.\n");
+        printf("Aucune commande trouvÃ©e.\n");
     }
 }
 //passer une commande
@@ -188,46 +188,46 @@ void passer_commande(Client *cl, Produit catalogue[], int nbe) {
     int ref, quantity;
 
     affiche(catalogue, nbe);
-    printf("Entrez la référence du produit (-1 pour quitter) : ");
+    printf("Entrez la rÃ©fÃ©rence du produit (-1 pour quitter) : ");
     scanf("%d", &ref);
 
     while (ref != -1) {
         int product_index = exist_ref(ref, catalogue, nbe);
         if (product_index == -1) {
-            printf("Référence introuvable.\n");
+            printf("RÃ©fÃ©rence introuvable.\n");
         } else {
             Produit *prod = &catalogue[product_index];
-            printf("Entrez la quantité : ");
+            printf("Entrez la quantitÃ© : ");
             scanf("%d", &quantity);
             if (prod->stock >= quantity && quantity > 0) {
                 prod->stock -= quantity;
 
             commande_element *new_elem = malloc(sizeof(commande_element));
             if (new_elem == NULL) {
-                printf("Erreur d'allocation mémoire pour l'élément de commande.\n");
+                printf("Erreur d'allocation mÃ©moire pour l'Ã©lÃ©ment de commande.\n");
                 return;
             }
             new_elem->commande = malloc(sizeof(Commande));
             if (new_elem->commande == NULL) {
-                printf("Erreur d'allocation mémoire pour la commande.\n");
+                printf("Erreur d'allocation mÃ©moire pour la commande.\n");
                 free(new_elem);
                 return;
             }
             snprintf(new_elem->commande->description, MAX_COMMANDE_DESC,
-                     "Produit: %s, Ref: %d, Quantité: %d, Prix total: %.2f",
+                     "Produit: %s, Ref: %d, QuantitÃ©: %d, Prix total: %.2f",
                      prod->nom_p, prod->reference, quantity, prod->prix * quantity);
 
                 new_elem->next = cl->commandes.first;
                 cl->commandes.first = new_elem;
 
 
-                printf("Commande passée avec succès !\n");
+                printf("Commande passÃ©e avec succÃ¨s !\n");
             } else {
-                printf("Stock insuffisant ou quantité invalide.\n");
+                printf("Stock insuffisant ou quantitÃ© invalide.\n");
             }
         }
 
-        printf("Entrez une autre référence (-1 pour quitter) : ");
+        printf("Entrez une autre rÃ©fÃ©rence (-1 pour quitter) : ");
         scanf("%d", &ref);
     }
 }
@@ -239,7 +239,7 @@ void ajout_catalogue(Produit t[], int nbe, Produit element) {
     printf("Donnez la quantite du stock : ");
     scanf("%d", &element.stock);
     t[nbe] = element;
-    printf("\nProduit ajouté au catalogue avec succès!\n");
+    printf("\nProduit ajoutÃ© au catalogue avec succÃ¨s!\n");
 }
 
 
@@ -247,7 +247,7 @@ int catalogue_plein(int nbe, int max) {
     return nbe >= max;
 }
 
-//fct qui vérifie l'existence d'un produit dans le catalogue et retourne pos
+//fct qui vÃ©rifie l'existence d'un produit dans le catalogue et retourne pos
 int exist(int ne_cata, Produit element, Produit catalogue[]) { int i=0;
       int c=-1;
     while ( i < ne_cata &&(catalogue[i].reference != element.reference) )
@@ -262,7 +262,7 @@ int exist(int ne_cata, Produit element, Produit catalogue[]) { int i=0;
     return c;
 }
 
-// modifier le paramètre d'un produit existant
+// modifier le paramÃ¨tre d'un produit existant
 void modifier(Produit catalogue[] , int c , char param[]) {
     if (strcmp(param, "stock") == 0) {
         printf("Donnez la quantite du stock : ");
@@ -283,7 +283,7 @@ void supp_prod(Produit cat[], int nbe_cat, int index) {
         cat[i] = cat[i + 1];
     }
     //nbe_cat=nbe_cat-1
-    printf("\nProduit supprimé du catalogue avec succès.\n");
+    printf("\nProduit supprimÃ© du catalogue avec succÃ¨s.\n");
 }
 
 
@@ -344,7 +344,7 @@ int main()
                 ne_cata++;
                         }
                     } else {
-                        printf("\nLe produit existe déjà dans le catalogue.\n");
+                        printf("\nLe produit existe dÃ©jÃ  dans le catalogue.\n");
                         printf("1 : Modifier le produit\n");
                         printf("2 : Supprimer le produit\n");
                         printf("3 : Retour\n");
@@ -354,7 +354,7 @@ int main()
 
                         if (choix3 == 1) {
                             char param[20];
-                            printf("Choisir le paramètre à modifier (stock/prix/nom) : ");
+                            printf("Choisir le paramÃ¨tre Ã  modifier (stock/prix/nom) : ");
                             scanf("%s", param);
                             modifier(catalogue,c, param);
                         } else if (choix3 == 2) {
@@ -388,12 +388,12 @@ int main()
                     creer_compte(clients, &nb_c);
                 } else if (choix2 == 2) {
                     int num_c;
-                    printf("donner votre numéro ");
+                    printf("donner votre numÃ©ro ");
                     scanf("%d",&num_c);
                     int pos = existe_compte(clients, nb_c, num_c);
                     if (pos==-1)
                     {
-                        printf("Ce compte n'existe pas, réessayez.\n");
+                        printf("Ce compte n'existe pas, rÃ©essayez.\n");
                         continue ;
                     }
                     else {
